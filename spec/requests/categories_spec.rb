@@ -16,85 +16,81 @@ RSpec.describe "/categories", type: :request do
   
   # Category. As you add validations to Category, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes2) {
+  let(:valid_attributes) {
     # skip("Add a hash of attributes valid for your model")
     attributes_for(:category)
   }
 
-  let(:valid_attributes) {
-    { :title => "Category 1" }
-  }
 
   let(:invalid_attributes) {
-    # skip("Add a hash of attributes invalid for your model")
-        FactoryBot.create(:category)
-
+      attributes_for(:category, title: "")
   }
 
   describe "GET /index" do
     it "renders a successful response" do
-      p valid_attributes2
-      Category.create!(valid_attributes2)
+      # p valid_attributes
+      Category.create!(valid_attributes)
       get categories_url
       expect(response).to be_successful
     end
   end
 
-  # describe "GET /show" do
-  #   it "renders a successful response" do
-  #     category = Category.create! valid_attributes
-  #     get category_url(category)
-  #     expect(response).to be_successful
-  #   end
-  # end
+  describe "GET /show" do
+    it "renders a successful response" do
+      category = Category.create! valid_attributes
+      get category_url(category)
+      expect(response).to be_successful
+    end
+  end
 
-  # describe "GET /new" do
-  #   it "renders a successful response" do
-  #     get new_category_url
-  #     expect(response).to be_successful
-  #   end
-  # end
+  describe "GET /new" do
+    it "renders a successful response" do
+      get new_category_url
+      expect(response).to be_successful
+    end
+  end
 
-  # describe "GET /edit" do
-  #   it "render a successful response" do
-  #     category = Category.create! valid_attributes
-  #     get edit_category_url(category)
-  #     expect(response).to be_successful
-  #   end
-  # end
+  describe "GET /edit" do
+    it "render a successful response" do
+      category = Category.create! valid_attributes
+      get edit_category_url(category)
+      expect(response).to be_successful
+    end
+  end
 
-  # describe "POST /create" do
-  #   context "with valid parameters" do
-  #     it "creates a new Category" do
-  #       expect {
-  #         post categories_url, params: { category: valid_attributes }
-  #       }.to change(Category, :count).by(1)
-  #     end
+  describe "POST /create" do
+    context "with valid parameters" do
+      it "creates a new Category" do
+        expect {
+          post categories_url, params: { category: valid_attributes }
+        }.to change(Category, :count).by(1)
+      end
 
-  #     it "redirects to the created category" do
-  #       post categories_url, params: { category: valid_attributes }
-  #       expect(response).to redirect_to(category_url(Category.last))
-  #     end
-  #   end
+      it "redirects to the created category" do
+        post categories_url, params: { category: valid_attributes }
+        expect(response).to redirect_to(category_url(Category.last))
+      end
+    end
 
-  #   context "with invalid parameters" do
-  #     it "does not create a new Category" do
-  #       expect {
-  #         post categories_url, params: { category: invalid_attributes }
-  #       }.to change(Category, :count).by(0)
-  #     end
+    context "with invalid parameters" do
+      it "does not create a new Category" do
+        expect {
+          post categories_url, params: { category: invalid_attributes }
+        }.to change(Category, :count).by(0)
+      end
 
-  #     it "renders a successful response (i.e. to display the 'new' template)" do
-  #       post categories_url, params: { category: invalid_attributes }
-  #       expect(response).to be_successful
-  #     end
-  #   end
-  # end
+      it "renders a successful response (i.e. to display the 'new' template)" do
+        post categories_url, params: { category: invalid_attributes }
+        # expect(response).to be_successful
+        expect(response).to have_http_status :unprocessable_entity #(422)
+      end
+    end
+  end
 
   # describe "PATCH /update" do
   #   context "with valid parameters" do
   #     let(:new_attributes) {
-  #       skip("Add a hash of attributes valid for your model")
+  #       # skip("Add a hash of attributes valid for your model")
   #     }
 
   #     it "updates the requested category" do
