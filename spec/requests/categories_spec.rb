@@ -87,26 +87,26 @@ RSpec.describe "/categories", type: :request do
     end
   end
 
-  # describe "PATCH /update" do
-  #   context "with valid parameters" do
-  #     let(:new_attributes) {
-  #       # skip("Add a hash of attributes valid for your model")
-  #     }
+  describe "PATCH /update" do
+    context "with valid parameters" do
+      let(:new_attributes) {
+        attributes_for(:category)
+      }
 
-  #     it "updates the requested category" do
-  #       category = Category.create! valid_attributes
-  #       patch category_url(category), params: { category: new_attributes }
-  #       category.reload
-  #       skip("Add assertions for updated state")
-  #     end
+      it "updates the requested category" do
+        category = Category.create! valid_attributes
+        patch category_url(category), params: { category: new_attributes }
+        category.reload
+        skip("Add assertions for updated state")
+      end
 
-  #     it "redirects to the category" do
-  #       category = Category.create! valid_attributes
-  #       patch category_url(category), params: { category: new_attributes }
-  #       category.reload
-  #       expect(response).to redirect_to(category_url(category))
-  #     end
-  #   end
+      it "redirects to the category" do
+        category = Category.create! valid_attributes
+        patch category_url(category), params: { category: new_attributes }
+        category.reload
+        expect(response).to redirect_to(category_url(category))
+      end
+    end
 
   #   context "with invalid parameters" do
   #     it "renders a successful response (i.e. to display the 'edit' template)" do
