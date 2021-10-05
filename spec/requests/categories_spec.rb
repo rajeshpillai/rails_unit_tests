@@ -97,7 +97,7 @@ RSpec.describe "/categories", type: :request do
         category = Category.create! valid_attributes
         patch category_url(category), params: { category: new_attributes }
         category.reload
-        skip("Add assertions for updated state")
+        # skip("Add assertions for updated state")
       end
 
       it "redirects to the category" do
@@ -108,27 +108,27 @@ RSpec.describe "/categories", type: :request do
       end
     end
 
-  #   context "with invalid parameters" do
-  #     it "renders a successful response (i.e. to display the 'edit' template)" do
-  #       category = Category.create! valid_attributes
-  #       patch category_url(category), params: { category: invalid_attributes }
-  #       expect(response).to be_successful
-  #     end
-  #   end
-  # end
+    context "with invalid parameters" do
+      it "renders a successful response (i.e. to display the 'edit' template)" do
+        category = Category.create! valid_attributes
+        patch category_url(category), params: { category: invalid_attributes }
+        expect(response).to have_http_status (:unprocessable_entity)
+      end
+    end
+  end
 
-  # describe "DELETE /destroy" do
-  #   it "destroys the requested category" do
-  #     category = Category.create! valid_attributes
-  #     expect {
-  #       delete category_url(category)
-  #     }.to change(Category, :count).by(-1)
-  #   end
+  describe "DELETE /destroy" do
+    it "destroys the requested category" do
+      category = Category.create! valid_attributes
+      expect {
+        delete category_url(category)
+      }.to change(Category, :count).by(-1)
+    end
 
-  #   it "redirects to the categories list" do
-  #     category = Category.create! valid_attributes
-  #     delete category_url(category)
-  #     expect(response).to redirect_to(categories_url)
-  #   end
-  # end
+    it "redirects to the categories list" do
+      category = Category.create! valid_attributes
+      delete category_url(category)
+      expect(response).to redirect_to(categories_url)
+    end
+  end
 end
