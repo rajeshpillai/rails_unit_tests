@@ -1,11 +1,10 @@
 require 'rails_helper'
 
-RSpec.describe "Homes", type: :request do
-  describe "GET /index" do
-    it "returns http success" do
-      get "/home/index"
-      expect(response).to have_http_status(:success)
+describe 'Hello world', type: :system do
+  describe 'index page' do
+    it 'shows the right content' do
+      visit home_index_path
+      expect(page).to have_content('Awesome Ecommerce')
     end
   end
-
 end
