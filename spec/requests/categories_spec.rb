@@ -123,12 +123,14 @@ RSpec.describe "/categories", type: :request do
       expect {
         delete category_url(category)
       }.to change(Category, :count).by(-1)
+
     end
 
     it "redirects to the categories list" do
       category = Category.create! valid_attributes
       delete category_url(category)
       expect(response).to redirect_to(categories_url)
+      # expect(response.body).to eq("Category was successfully destroyed.")
     end
   end
 end
